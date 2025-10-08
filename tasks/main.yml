@@ -1,0 +1,10 @@
+---
+- name: Set version for repository
+  ansible.builtin.set_fact:
+    # 14.3 → 143
+    repository_version: "{{ ansible_distribution_version | regex_replace('^([0-9]+)\\.([0-9]+)$', '\\1\\2') }}"
+- name: Copy files
+  ansible.builtin.template:
+    src: templates/repos/{{ mit_repository_name }}.conf
+    dest: /usr/local/etc/pkg/repos/
+    mode: "644"
