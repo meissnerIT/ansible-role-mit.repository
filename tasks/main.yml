@@ -3,6 +3,11 @@
   ansible.builtin.set_fact:
     # 14.3 → 143
     repository_version: "{{ ansible_distribution_version | regex_replace('^([0-9]+)\\.([0-9]+)$', '\\1\\2') }}"
+- name: Create /usr/local/etc/pkg/repos/
+  ansible.builtin.file:
+    dest: /usr/local/etc/pkg/repos/
+    state: directory
+    mode: "0755"
 - name: Copy files
   ansible.builtin.template:
     src: repository.conf
